@@ -1,7 +1,7 @@
 <template>
     <div class="lyrics">
-        <p>Paranoia is in bloom</p>
-        <p>The PR transmissions will resume</p>
+        <p class="active">Paranoia is in bloom</p>
+        <p class="next">The PR transmissions will resume</p>
         <p>They'll try to push drugs that keep us all dumbed down</p>
         <p>And hope that we will never see the truth around</p>
         <p>(So come on)</p>
@@ -58,9 +58,8 @@ export default {
     letter-spacing: 3px;
     font-weight: 900;
     font-size: 1.5rem;
-    padding: 15px 30px;
+    padding: 30px;
     text-align: center;
-    height: 160px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -73,7 +72,12 @@ export default {
     margin-bottom: 0;
 }
 
-.lyrics small {
+.lyrics .active,
+.lyrics .next {
+    display: block;
+}
+
+.lyrics .next {
     font-size: 1rem;
     opacity: 0.5;
 }

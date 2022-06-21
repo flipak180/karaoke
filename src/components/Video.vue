@@ -1,10 +1,10 @@
 <template>
-    <video src="@/assets/video/uprising.mp4" playsinline autoplay muted></video>
+    <video src="@/assets/video/uprising.mp4" playsinline id="video"></video>
 </template>
 
 <script>
 export default {
-    name: "Video"
+    name: "Video",
 }
 </script>
 
