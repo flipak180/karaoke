@@ -1,37 +1,31 @@
+<script setup>
+import Lyrics from "./components/Lyrics.vue";
+import Video from "./components/Video.vue";
+import CurrentNote from "./components/CurrentNote.vue";
+import {ref} from "vue";
+
+const isOn = ref(false);
+const isRec = ref(false);
+
+function play() {
+    isOn.value = true;
+    document.getElementById('video').play();
+}
+</script>
+
 <template>
     <div v-show="isOn">
         <Video />
         <Lyrics />
-        <CurrentNote />
+        <CurrentNote :isRec="isRec" />
     </div>
-    <div class="play" @click="play" v-show="!isOn">Play</div>
+
+    <div class="control-buttons">
+        <div class="btn" @click="play" v-show="!isOn">Play</div>
+        <div class="btn" @click="isRec = true" v-show="!isRec">Record</div>
+        <div class="btn" @click="isRec = false" v-show="isRec">Stop</div>
+    </div>
 </template>
-
-<script>
-import Lyrics from "./components/Lyrics.vue";
-import Video from "./components/Video.vue";
-import CurrentNote from "./components/CurrentNote.vue";
-
-export default {
-    name: "App",
-    data() {
-        return {
-            isOn: false
-        }
-    },
-    components: {
-        Lyrics,
-        Video,
-        CurrentNote
-    },
-    methods: {
-        play() {
-            this.isOn = true;
-            document.getElementById('video').play();
-        }
-    }
-}
-</script>
 
 <style>
 
@@ -45,18 +39,23 @@ body {
     height: 100vh;
 }
 
-.play {
+.control-buttons {
     position: fixed;
     top: 100px;
     left: 50%;
     transform: translate(-50%, 0);
     z-index: 10;
+}
+
+.btn {
     background: #000;
     padding: 10px 30px;
     color: #fff;
     font-size: 42px;
     cursor: pointer;
     border-radius: 5px;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 @media (max-width: 575px) {

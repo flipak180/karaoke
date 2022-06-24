@@ -1,12 +1,10 @@
+<script setup>
+
+</script>
+
 <template>
     <video src="@/assets/video/uprising.mp4" playsinline id="video"></video>
 </template>
-
-<script>
-export default {
-    name: "Video",
-}
-</script>
 
 <style scoped>
 
