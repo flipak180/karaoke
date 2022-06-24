@@ -1,3 +1,16 @@
+<template>
+    <div class="current-note">
+        <div>
+            <span>Нота:</span>
+            <strong v-if="note">{{ note.name }} ({{ note.nameRus }})</strong>
+        </div>
+        <div>
+            <span>Октава:</span>
+            <strong v-if="note">{{ note.octave }}</strong>
+        </div>
+    </div>
+</template>
+
 <script setup>
 import aubio from "aubiojs";
 import {onMounted, ref, watch} from "vue";
@@ -68,19 +81,6 @@ function getCents(frequency, note) {
     return Math.floor((1200 * Math.log(frequency / getStandardFrequency(note))) / Math.log(2));
 }
 </script>
-
-<template>
-    <div class="current-note">
-        <div>
-            <span>Нота:</span>
-            <strong v-if="note">{{ note.name }} ({{ note.nameRus }})</strong>
-        </div>
-        <div>
-            <span>Октава:</span>
-            <strong v-if="note">{{ note.octave }}</strong>
-        </div>
-    </div>
-</template>
 
 <style scoped>
 
