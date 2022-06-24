@@ -1,11 +1,18 @@
-<script setup>
-import CurrentNote from './CurrentNote.vue';
-</script>
-
 <template>
     <CurrentNote/>
     <video src="@/assets/video/uprising.mp4" playsinline id="video"></video>
 </template>
+
+<script>
+import CurrentNote from './CurrentNote.vue';
+
+export default {
+    name: "Test",
+    components: {
+        CurrentNote
+    }
+}
+</script>
 
 <style scoped>
 video {

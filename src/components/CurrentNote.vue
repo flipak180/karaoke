@@ -11,9 +11,8 @@
     </div>
 </template>
 
-<script setup>
+<script>
 import aubio from "aubiojs";
-import {onMounted, ref, watch} from "vue";
 
 const bufferSize = 4096;
 const middleA = 440;
@@ -23,62 +22,67 @@ const noteStringsRus = ["До", "До♯", "Ре", "Ре♯", "Ми", "Фа", "�
 
 let notes = [];
 
-const props = defineProps(['isRec'])
+export default {
+    name: "CurrentNote",
+    props: ['isRec'],
+    data() {
+        return {
+            note: {}
+        }
+    },
+    mounted() {
+        navigator.mediaDevices.getUserMedia({ audio: true }).then(async (stream) => {
+            const audioContext = new AudioContext();
+            const analyser = audioContext.createAnalyser();
+            const scriptProcessor = audioContext.createScriptProcessor(bufferSize, 1, 1);
 
-const note = ref({});
+            const { Pitch } = await aubio();
+            let pitchDetector = new Pitch("default", bufferSize, 1, audioContext.sampleRate);
+            audioContext.createMediaStreamSource(stream).connect(analyser);
+            analyser.connect(scriptProcessor);
+            scriptProcessor.connect(audioContext.destination);
 
-onMounted(() => {
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(async (stream) => {
-        const audioContext = new AudioContext();
-        const analyser = audioContext.createAnalyser();
-        const scriptProcessor = audioContext.createScriptProcessor(bufferSize, 1, 1);
-
-        const { Pitch } = await aubio();
-        let pitchDetector = new Pitch("default", bufferSize, 1, audioContext.sampleRate);
-        audioContext.createMediaStreamSource(stream).connect(analyser);
-        analyser.connect(scriptProcessor);
-        scriptProcessor.connect(audioContext.destination);
-
-        scriptProcessor.addEventListener("audioprocess", (event) => {
-            const frequency = pitchDetector.do(event.inputBuffer.getChannelData(0));
-            if (frequency) {
-                const currentNote = getNote(frequency);
-                const noteInfo = {
-                    name: noteStrings[currentNote % 12],
-                    nameRus: noteStringsRus[currentNote % 12],
-                    value: currentNote,
-                    cents: getCents(frequency, currentNote),
-                    octave: parseInt(currentNote / 12) - 1,
-                    frequency: frequency,
-                    time: props.isRec ? Date.now() : null,
-                };
-                note.value = noteInfo;
-                if (props.isRec) {
-                    notes.push(noteInfo);
+            scriptProcessor.addEventListener("audioprocess", (event) => {
+                const frequency = pitchDetector.do(event.inputBuffer.getChannelData(0));
+                if (frequency) {
+                    const currentNote = this.getNote(frequency);
+                    const noteInfo = {
+                        name: noteStrings[currentNote % 12],
+                        nameRus: noteStringsRus[currentNote % 12],
+                        value: currentNote,
+                        cents: this.getCents(frequency, currentNote),
+                        octave: parseInt(currentNote / 12) - 1,
+                        frequency: frequency,
+                        time: this.isRec ? Date.now() : null,
+                    };
+                    this.note = noteInfo;
+                    if (this.isRec) {
+                        notes.push(noteInfo);
+                    }
                 }
-            }
+            });
         });
-    });
-})
-
-watch(() => props.isRec, async (newValue, oldValue) => {
-    if (!props.isRec) {
-        console.log(notes);
-        notes = [];
+    },
+    watch: {
+        isRec() {
+            if (!this.isRec) {
+                console.log(notes);
+                notes = [];
+            }
+        }
+    },
+    methods: {
+        getNote(frequency) {
+            const note = 12 * (Math.log(frequency / middleA) / Math.log(2));
+            return Math.round(note) + semitone;
+        },
+        getStandardFrequency(note) {
+            return middleA * Math.pow(2, (note - semitone) / 12);
+        },
+        getCents(frequency, note) {
+            return Math.floor((1200 * Math.log(frequency / this.getStandardFrequency(note))) / Math.log(2));
+        },
     }
-})
-
-function getNote(frequency) {
-    const note = 12 * (Math.log(frequency / middleA) / Math.log(2));
-    return Math.round(note) + semitone;
-}
-
-function getStandardFrequency(note) {
-    return middleA * Math.pow(2, (note - semitone) / 12);
-}
-
-function getCents(frequency, note) {
-    return Math.floor((1200 * Math.log(frequency / getStandardFrequency(note))) / Math.log(2));
 }
 </script>
 

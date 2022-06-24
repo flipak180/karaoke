@@ -1,7 +1,3 @@
-<script setup>
-
-</script>
-
 <template>
     <div class="lyrics">
         <p class="active">Paranoia is in bloom</p>
@@ -41,6 +37,12 @@
         <p>(So come on)</p>
     </div>
 </template>
+
+<script>
+export default {
+    name: "Test"
+}
+</script>
 
 <style scoped>
 
