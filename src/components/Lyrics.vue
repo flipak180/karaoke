@@ -1,46 +1,47 @@
 <template>
     <div class="lyrics">
-        <p class="active">Paranoia is in bloom</p>
-        <p class="next">The PR transmissions will resume</p>
-        <p>They'll try to push drugs that keep us all dumbed down</p>
-        <p>And hope that we will never see the truth around</p>
-        <p>(So come on)</p>
-        <p>Another promise, another scene</p>
-        <p>Another packaged lie to keep us trapped in greed</p>
-        <p>And all the green belts wrapped around our minds</p>
-        <p>And endless red tape to keep the truth confined</p>
-        <p>(So come on)</p>
-        <p>They will not force us</p>
-        <p>They will stop degrading us</p>
-        <p>They will not control us</p>
-        <p>We will be victorious</p>
-        <p>(So come on)</p>
-        <p>Interchanging mind control</p>
-        <p>Come, let the revolution take its toll</p>
-        <p>If you could flick the switch and open your third eye</p>
-        <p>You'd see that we should never be afraid to die</p>
-        <p>(So come on)</p>
-        <p>Rise up and take the power back</p>
-        <p>It's time the fat cats had a heart attack</p>
-        <p>You know that their time's coming to an end</p>
-        <p>We have to unify and watch our flag ascend</p>
-        <p>(So come on)</p>
-        <p>They will not force us</p>
-        <p>They will stop degrading us</p>
-        <p>They will not control us</p>
-        <p>We will be victorious</p>
-        <p>(So come on)</p>
-        <p>They will not force us</p>
-        <p>They will stop degrading us</p>
-        <p>They will not control us</p>
-        <p>We will be victorious</p>
-        <p>(So come on)</p>
+        <div class="lines">
+            <!--        <p class="active">Paranoia is in bloom</p>-->
+            <!--        <p class="next">The PR transmissions will resume</p>-->
+            <p v-for="(line, index) in lines" :class="{
+                active: activeLine && (index === activeLine),
+                next: activeLine && (index === activeLine + 1)
+            }">{{ line.text }}</p>
+        </div>
     </div>
 </template>
 
 <script>
+
+let timer = null;
+
 export default {
-    name: "Test"
+    name: "Test",
+    props: ['lines'],
+    data() {
+        return {
+            startTime: null,
+            activeLine: null,
+        }
+    },
+    mounted() {
+        this.startTime = Date.now();
+        timer = setInterval(() => {
+            this.checkLine();
+        }, 1000);
+    },
+    methods: {
+        checkLine() {
+            let estimate = Date.now() - this.startTime;
+            console.log(estimate);
+            for (const [i, line] of this.lines.entries()) {
+                if (estimate > line.time && estimate < this.lines[i + 1].time && this.activeLine !== i) {
+                    this.activeLine = i;
+                    break;
+                }
+            }
+        },
+    }
 }
 </script>
 
@@ -52,7 +53,7 @@ export default {
     left: 50%;
     transform: translate(-50%, 0);
     width: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.5);
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 3px;
@@ -65,10 +66,22 @@ export default {
     justify-content: center;
     align-items: center;
     gap: 10px;
+
+    /*height: calc(4rem + 60px);*/
+    /*min-height: calc(4rem + 60px);*/
+    /*line-height: 2rem;*/
+    /*overflow: hidden;*/
 }
+
+/*.lines {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    margin-top: 30px;*/
+/*}*/
 
 .lyrics p {
     display: none;
+    /*margin-bottom: 1rem;*/
     margin-bottom: 0;
 }
 

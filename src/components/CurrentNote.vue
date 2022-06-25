@@ -53,6 +53,7 @@ export default {
                         cents: this.getCents(frequency, currentNote),
                         octave: parseInt(currentNote / 12) - 1,
                         frequency: frequency,
+                        number: currentNote % 12 + ((parseInt(currentNote / 12) - 1) * 12),
                         time: this.isRec ? Date.now() : null,
                     };
                     this.note = noteInfo;

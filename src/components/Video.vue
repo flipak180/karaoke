@@ -1,6 +1,6 @@
 <template>
     <CurrentNote/>
-    <video src="@/assets/video/uprising.mp4" playsinline id="video"></video>
+    <video :src="'/video/' + src" playsinline id="video"></video>
 </template>
 
 <script>
@@ -10,7 +10,8 @@ export default {
     name: "Test",
     components: {
         CurrentNote
-    }
+    },
+    props: ['src']
 }
 </script>
 

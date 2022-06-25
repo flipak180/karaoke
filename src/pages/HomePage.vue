@@ -1,7 +1,7 @@
 <template>
     <div class="control-buttons">
         <router-link to="/player" class="btn">Play</router-link>
-        <router-link to="/record" class="btn">Record</router-link>
+        <router-link to="/recorder" class="btn">Recorder</router-link>
     </div>
 </template>
 
@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .control-buttons {
     position: fixed;
     top: 100px;

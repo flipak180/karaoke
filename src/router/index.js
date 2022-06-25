@@ -15,8 +15,8 @@ const router = createRouter({
             component: () => import('../pages/PlayerPage.vue')
         },
         {
-            path: '/record',
-            name: 'record',
+            path: '/recorder',
+            name: 'recorder',
             component: () => import('../pages/RecorderPage.vue')
         }
     ]

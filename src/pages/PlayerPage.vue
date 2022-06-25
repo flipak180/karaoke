@@ -1,23 +1,23 @@
 <template>
-    <Video/>
-    <Lyrics/>
-    <CurrentNote/>
+    <Player :song="song" v-if="song"/>
 </template>
 
 <script>
-import Video from '../components/Video.vue';
-import Lyrics from '../components/Lyrics.vue';
-import CurrentNote from '../components/CurrentNote.vue';
+import Player from "../components/Player.vue";
+import uprising from "../songs/uprising.js";
 
 export default {
-    name: "Test",
+    name: "PlayerPage",
     components: {
-        Video,
-        Lyrics,
-        CurrentNote
+        Player,
+    },
+    data() {
+        return {
+            song: null,
+        }
     },
     mounted() {
-        document.getElementById("video").play();
+        this.song = uprising;
     }
 }
 </script>
