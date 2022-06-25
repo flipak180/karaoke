@@ -89,27 +89,4 @@ export default {
 
 <style scoped>
 
-.current-note {
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    width: 150px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    font-size: 1rem;
-}
-.current-note {
-    margin: 0;
-}
-.current-note span {
-    font-size: 0.8rem;
-    opacity: 0.5;
-    margin-right: 5px;
-}
-
 </style>

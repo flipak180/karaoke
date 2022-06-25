@@ -1,7 +1,8 @@
 <template>
     <Video :src="song.video" />
-    <Lyrics :lines="song.lyrics" />
-    <CurrentNote/>
+<!--    <Lyrics :lines="song.lyrics" />-->
+<!--    <CurrentNote/>-->
+    <NotesSlider :notes="song.notes"/>
     <CountDown @end="start" :number="startDelay" />
 </template>
 
@@ -10,6 +11,7 @@ import Video from "./Video.vue";
 import Lyrics from "./Lyrics.vue";
 import CurrentNote from "./CurrentNote.vue";
 import CountDown from "./CountDown.vue";
+import NotesSlider from "./NotesSlider.vue";
 
 export default {
     name: "Player",
@@ -19,6 +21,7 @@ export default {
         Lyrics,
         CurrentNote,
         CountDown,
+        NotesSlider
     },
     data() {
         return {
@@ -38,17 +41,5 @@ export default {
 </script>
 
 <style scoped>
-    .count-down {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: rgba(0, 0, 0, 0.7);
-        color: #fff;
-        font-size: 72px;
-    }
+
 </style>
