@@ -1,5 +1,5 @@
 <template>
-    <div class="notes-slider">
+    <div class="notes-slider" v-if="notes">
         <div class="notes-wrapper">
             <div class="note" v-for="note in prepareNotes" :style="note.styles"></div>
         </div>
@@ -13,11 +13,19 @@ const MAX_NOTE = 70;
 
 export default {
     name: "NotesSlider",
-    props: {
-        notes: {
-            type: Array,
-            default: []
-        },
+    // props: {
+    //     notes: {
+    //         type: Array,
+    //         default: []
+    //     },
+    // },
+    data() {
+        return {
+            notes: null,
+        }
+    },
+    mounted() {
+        this.notes = JSON.parse(localStorage.getItem('notes'));
     },
     computed: {
         prepareNotes() {

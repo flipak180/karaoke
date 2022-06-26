@@ -1,7 +1,7 @@
 <template>
     <Video :src="song.video" />
 <!--    <Lyrics :lines="song.lyrics" />-->
-<!--    <CurrentNote/>-->
+    <CurrentNote/>
     <NotesSlider :notes="song.notes"/>
     <CountDown @end="start" :number="startDelay" />
 </template>
