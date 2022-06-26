@@ -10,6 +10,8 @@ import Note from "../models/Note.js";
 import AudioProcess from "../models/AudioProcess.js";
 
 let notes = [];
+let note = null;
+let time = null;
 let processor = null;
 
 export default {
@@ -22,10 +24,15 @@ export default {
     methods: {
         start() {
             this.isRec = true;
-            processor = new AudioProcess((frequency) => {
+            time = Date.now();
+            processor = new AudioProcess(frequency => {
                 if (frequency) {
-                    const note = new Note(frequency);
+                    note = new Note(frequency);
+                    note.start = Date.now() - time;
+                } else if (note) {
+                    note.end = Date.now() - time;
                     notes.push(note);
+                    note = null;
                 }
             });
         },

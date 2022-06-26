@@ -1,8 +1,8 @@
 <template>
     <Video :src="song.video" />
-<!--    <Lyrics :lines="song.lyrics" />-->
+    <Lyrics :lines="song.lyrics" />
     <CurrentNote/>
-    <NotesSlider :notes="song.notes"/>
+    <NotesSlider :notes="song.notes" :duration="song.duration" />
     <CountDown @end="start" :number="startDelay" />
 </template>
 
@@ -34,7 +34,12 @@ export default {
     methods: {
         start() {
             console.log('start');
-            //document.getElementById("video").play();
+
+            let video = document.getElementById("video");
+            video.play();
+            // video.ontimeupdate = () => {
+            //     console.log(Math.round(video.currentTime * 1000));
+            // }
         }
     }
 }

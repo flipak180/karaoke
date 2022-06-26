@@ -33,7 +33,7 @@ export default {
     methods: {
         checkLine() {
             let estimate = Date.now() - this.startTime;
-            console.log(estimate);
+            // console.log(estimate);
             for (const [i, line] of this.lines.entries()) {
                 if (estimate > line.time && estimate < this.lines[i + 1].time && this.activeLine !== i) {
                     this.activeLine = i;

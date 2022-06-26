@@ -22,7 +22,7 @@ export default class Note {
         this.name = Note.noteStrings[currentNote % 12];
         this.nameRus = Note.noteStringsRus[currentNote % 12];
         this.value = currentNote;
-        this.cents = this.getCents(frequency, currentNote);
+        // this.cents = this.getCents(frequency, currentNote);
         this.octave = Math.floor(currentNote / 12) - 1;
         this.frequency = frequency;
         this.number = currentNote % 12 + (this.octave * 12);
