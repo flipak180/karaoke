@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { mapState } from 'pinia'
+import { useMainStore } from '../stores/main.js'
 
 let timer = null;
 
@@ -20,22 +22,22 @@ export default {
     props: ['lines'],
     data() {
         return {
-            startTime: null,
             activeLine: null,
         }
     },
+    computed: {
+        ...mapState(useMainStore, ['time'])
+    },
     mounted() {
-        this.startTime = Date.now();
         timer = setInterval(() => {
             this.checkLine();
         }, 1000);
     },
     methods: {
         checkLine() {
-            let estimate = Date.now() - this.startTime;
-            // console.log(estimate);
+            console.log(this.time);
             for (const [i, line] of this.lines.entries()) {
-                if (estimate > line.time && estimate < this.lines[i + 1].time && this.activeLine !== i) {
+                if (this.time > line.time && this.time < this.lines[i + 1].time && this.activeLine !== i) {
                     this.activeLine = i;
                     break;
                 }
