@@ -16,7 +16,7 @@
 let timer = null;
 
 export default {
-    name: "Test",
+    name: "Lyrics",
     props: ['lines'],
     data() {
         return {

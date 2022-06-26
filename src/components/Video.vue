@@ -7,7 +7,7 @@
 import CurrentNote from './CurrentNote.vue';
 
 export default {
-    name: "Test",
+    name: "Video",
     components: {
         CurrentNote
     },
