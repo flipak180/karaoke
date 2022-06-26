@@ -3,6 +3,10 @@ export default {
     video: 'uprising.mp4',
     duration: 1000 * 251,
     lyrics: [
+        {time: 4000, text: 'Ready'},
+        {time: 6000, text: 'Set'},
+        {time: 8000, text: 'Go!'},
+
         {time: 30000, text: ''},
         {time: 32000, text: ''},
         {time: 34000, text: 'Ready'},

@@ -12,8 +12,6 @@ import Lyrics from "./Lyrics.vue";
 import CurrentNote from "./CurrentNote.vue";
 import CountDown from "./CountDown.vue";
 import NotesSlider from "./NotesSlider.vue";
-import {mapState} from "pinia/dist/pinia.esm-browser.js";
-import {useMainStore} from "../stores/main.js";
 
 export default {
     name: "Player",
@@ -30,21 +28,12 @@ export default {
             startDelay: 0,
         }
     },
-    mounted() {
-        console.log(this.song);
-    },
     methods: {
         start() {
-            console.log('start');
-
-            const store = useMainStore()
-
             let video = document.getElementById("video");
             video.play();
             video.ontimeupdate = () => {
-                store.$patch({
-                    time: Math.round(video.currentTime * 1000),
-                })
+                this.$store.commit('setTime', Math.round(video.currentTime * 1000));
             }
         }
     }

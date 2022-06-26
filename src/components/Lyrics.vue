@@ -12,8 +12,7 @@
 </template>
 
 <script>
-import { mapState } from 'pinia'
-import { useMainStore } from '../stores/main.js'
+import {mapState} from "vuex";
 
 let timer = null;
 
@@ -26,7 +25,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(useMainStore, ['time'])
+        ...mapState(['time'])
     },
     mounted() {
         timer = setInterval(() => {
@@ -35,7 +34,6 @@ export default {
     },
     methods: {
         checkLine() {
-            console.log(this.time);
             for (const [i, line] of this.lines.entries()) {
                 if (this.time > line.time && this.time < this.lines[i + 1].time && this.activeLine !== i) {
                     this.activeLine = i;

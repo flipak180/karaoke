@@ -10,7 +10,8 @@
     "aubiojs": "^0.0.1",
     "pinia": "^2.0.14",
     "vue": "^3.2.37",
-    "vue-router": "^4.0.16"
+    "vue-router": "^4.0.16",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",

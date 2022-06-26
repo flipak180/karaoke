@@ -34,7 +34,7 @@ body {
 
 .lyrics {
     position: fixed;
-    bottom: 0;
+    bottom: 100px;
     left: 50%;
     transform: translate(-50%, 0);
     width: 100%;
@@ -155,4 +155,12 @@ video {
         background: #fff;
         border-radius: 5px;
     }
+}
+
+.current-note-point {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: violet;
+    border-radius: 50%;
 }

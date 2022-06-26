@@ -1,23 +1,22 @@
 <template>
     <div class="notes-slider">
         <div class="notes-wrapper" v-if="notes" :style="{width: duration + 'px'}" ref="notesWrapper">
+            <CurrentNotePoint v-if="currentNote" :number="currentNote.number" />
             <div class="note" v-for="note in prepareNotes" :style="note.styles"></div>
         </div>
     </div>
 </template>
 
 <script>
-import {Transition} from "vue";
-
-const MIN_NOTE = 30;
-
-const MAX_NOTE = 70;
+import {MAX_NOTE} from "../models/Note.js";
+import CurrentNotePoint from "./CurrentNotePoint.vue";
+import {mapState} from "vuex";
 
 export default {
     name: "NotesSlider",
     // props: ['duration'],
     components: {
-        Transition
+        CurrentNotePoint
     },
     props: {
         notes: {
@@ -35,25 +34,24 @@ export default {
     },
     mounted() {
         // this.notes = JSON.parse(localStorage.getItem('notes'));
-        this.$nextTick(() => {
-            this.$refs.notesWrapper.animate([
-                { transform: 'translateX(0)' },
-                { transform: `translateX(-${this.duration}px)` }
-            ], {
-                duration: this.duration,
-            })
-        });
+        // this.$nextTick(() => {
+        //     this.$refs.notesWrapper.animate([
+        //         { transform: 'translateX(0)' },
+        //         { transform: `translateX(-${this.duration}px)` }
+        //     ], {
+        //         duration: this.duration,
+        //     })
+        // });
     },
     computed: {
+        ...mapState(['time', 'currentNote']),
         prepareNotes() {
-            console.log(this.notes);
             // let left = 0;
             return this.notes.map((note, index) => {
                 const width = note.end - note.start;
                 // left += width + (index * 50);
                 const left = note.start;
-                const diff = MAX_NOTE - note.number;
-                const top = diff * 2;
+                const top = (MAX_NOTE - note.number) * 2;
                 note.styles = {
                     width: width + 'px',
                     left: left + 'px',
@@ -63,6 +61,11 @@ export default {
             });
         },
     },
+    watch: {
+        time() {
+            this.$refs.notesWrapper.style.transform = `translateX(-${this.time}px)`;
+        }
+    }
 }
 </script>
 
