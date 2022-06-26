@@ -15,23 +15,26 @@ const MAX_NOTE = 70;
 
 export default {
     name: "NotesSlider",
-    props: ['duration'],
+    // props: ['duration'],
     components: {
         Transition
     },
-    // props: {
-    //     notes: {
-    //         type: Array,
-    //         default: []
-    //     },
-    // },
+    props: {
+        notes: {
+            type: Array,
+            default: []
+        },
+        duration: {
+            type: Number,
+        }
+    },
     data() {
         return {
-            notes: null,
+            // notes: null,
         }
     },
     mounted() {
-        this.notes = JSON.parse(localStorage.getItem('notes'));
+        // this.notes = JSON.parse(localStorage.getItem('notes'));
         this.$nextTick(() => {
             this.$refs.notesWrapper.animate([
                 { transform: 'translateX(0)' },
