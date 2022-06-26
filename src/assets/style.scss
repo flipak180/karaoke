@@ -139,8 +139,8 @@ video {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
-    background: rgba(255, 255, 255, 0.7);
-    height: 400px;
+    background: rgba(255, 255, 255, 0.2);
+    height: calc(100vh - 260px);
     width: 100%;
     padding: 50px;
 
@@ -152,7 +152,7 @@ video {
     .note {
         position: absolute;
         height: 15px;
-        background: #fff;
+        background: #60ebcf;
         border-radius: 5px;
     }
 }
@@ -163,4 +163,11 @@ video {
     height: 10px;
     background: violet;
     border-radius: 50%;
+    z-index: 10;
+}
+
+.video-play-btn {
+    position: fixed;
+    top: 0;
+    right: 0;
 }

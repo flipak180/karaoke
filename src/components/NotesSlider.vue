@@ -1,7 +1,7 @@
 <template>
     <div class="notes-slider">
+        <CurrentNotePoint v-if="currentNote" :number="currentNote.number" />
         <div class="notes-wrapper" v-if="notes" :style="{width: duration + 'px'}" ref="notesWrapper">
-            <CurrentNotePoint v-if="currentNote" :number="currentNote.number" />
             <div class="note" v-for="note in prepareNotes" :style="note.styles"></div>
         </div>
     </div>
