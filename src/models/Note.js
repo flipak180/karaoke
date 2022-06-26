@@ -1,4 +1,4 @@
-export const MAX_NOTE = 70;
+export const MAX_NOTE = 100;
 
 export default class Note {
 

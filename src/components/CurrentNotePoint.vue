@@ -14,6 +14,7 @@ export default {
     },
     computed: {
         top() {
+            console.log(this.number);
             return (MAX_NOTE - this.number) * 2;
         }
     }
