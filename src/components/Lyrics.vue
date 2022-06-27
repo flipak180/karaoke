@@ -30,7 +30,7 @@ export default {
     mounted() {
         timer = setInterval(() => {
             this.checkLine();
-        }, 1000);
+        }, 200);
     },
     methods: {
         checkLine() {

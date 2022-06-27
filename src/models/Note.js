@@ -46,4 +46,8 @@ export default class Note {
     getInfo() {
         return {}
     }
+
+    isEqual(frequency) {
+        return Math.abs(frequency - this.frequency) < 5;
+    }
 }

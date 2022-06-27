@@ -1,6 +1,6 @@
 <template>
     <div class="notes-slider">
-        <CurrentNotePoint v-if="currentNote" :number="currentNote.number" />
+        <CurrentNotePoint v-if="currentNote" :note="currentNote.number" />
         <div class="notes-wrapper" v-if="notes" :style="{width: duration + 'px'}" ref="notesWrapper">
             <div class="note" v-for="note in prepareNotes" :style="note.styles"></div>
         </div>
@@ -48,6 +48,10 @@ export default {
         prepareNotes() {
             // let left = 0;
             return this.notes.map((note, index) => {
+                note.start += 40000;
+                note.end += 40000;
+
+
                 const width = note.end - note.start;
                 // left += width + (index * 50);
                 const left = note.start;

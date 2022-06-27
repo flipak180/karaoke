@@ -1,6 +1,6 @@
 <template>
     <CurrentNote/>
-    <video :src="'/video/' + src" playsinline id="video"></video>
+    <video :src="'/video/' + src" playsinline controls id="video"></video>
 </template>
 
 <script>

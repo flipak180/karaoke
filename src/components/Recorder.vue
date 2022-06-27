@@ -9,10 +9,13 @@
 import Note from "../models/Note.js";
 import AudioProcess from "../models/AudioProcess.js";
 
+const ALLOW_EMPTY_NOTES = 5;
+
 let notes = [];
 let note = null;
 let time = null;
 let processor = null;
+let emptyNotes = 0;
 
 export default {
     name: "Recorder",
@@ -26,13 +29,30 @@ export default {
             this.isRec = true;
             time = Date.now();
             processor = new AudioProcess(frequency => {
-                if (frequency) {
+                if (frequency && !note) {
                     note = new Note(frequency);
                     note.start = Date.now() - time;
-                } else if (note) {
+                }
+
+                if (frequency && note && !note.isEqual(frequency)) {
+                    note.end = Date.now() - time;
+                    notes.push(note);
+
+                    note = new Note(frequency);
+                    note.start = Date.now() - time;
+                }
+
+                if (!frequency && note) {
                     note.end = Date.now() - time;
                     notes.push(note);
                     note = null;
+
+                    // emptyNotes++;
+                    // if (emptyNotes > ALLOW_EMPTY_NOTES) {
+                    //     note.end = Date.now() - time;
+                    //     notes.push(note);
+                    //     note = null;
+                    // }
                 }
             });
         },
