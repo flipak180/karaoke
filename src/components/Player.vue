@@ -4,7 +4,6 @@
     <CurrentNote/>
     <NotesSlider :notes="song.notes" :duration="song.duration" />
 <!--    <CountDown @end="start" :number="startDelay" />-->
-    <button @click="toggle" class="video-play-btn">{{ isPlay ? 'Pause' : 'Play' }}</button>
 </template>
 
 <script>
@@ -29,25 +28,8 @@ export default {
     data() {
         return {
             startDelay: 0,
-            isPlay: false,
         }
     },
-    mounted() {
-        video = document.getElementById("video");
-        video.ontimeupdate = () => {
-            this.$store.commit('setTime', Math.round(video.currentTime * 1000));
-        }
-    },
-    methods: {
-        toggle() {
-            this.isPlay = !this.isPlay;
-            if (this.isPlay) {
-                video.play();
-            } else {
-                video.pause();
-            }
-        }
-    }
 }
 </script>
 

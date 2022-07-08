@@ -1,5 +1,3 @@
-export const MAX_NOTE = 100;
-
 export default class Note {
 
     static get middleA() {

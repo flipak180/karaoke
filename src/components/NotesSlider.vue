@@ -1,14 +1,15 @@
 <template>
     <div class="notes-slider">
-        <CurrentNotePoint v-if="currentNote" :note="currentNote.number" />
-        <div class="notes-wrapper" v-if="notes" :style="{width: duration + 'px'}" ref="notesWrapper">
-            <div class="note" v-for="note in prepareNotes" :style="note.styles"></div>
+        <div class="notes-slider-inner">
+            <CurrentNotePoint v-if="currentNote" :note="currentNote.number" :minNote="minNote" :maxNote="maxNote" />
+            <div class="notes-wrapper" v-if="notes" :style="{width: duration + 'px'}" ref="notesWrapper">
+                <div class="note" v-for="note in prepareNotes" :style="note.styles"></div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import {MAX_NOTE} from "../models/Note.js";
 import CurrentNotePoint from "./CurrentNotePoint.vue";
 import {mapState} from "vuex";
 
@@ -29,37 +30,42 @@ export default {
     },
     data() {
         return {
-            // notes: null,
+            minNote: null,
+            maxNote: null,
+            notesWrapperHeight: null,
         }
     },
     mounted() {
-        // this.notes = JSON.parse(localStorage.getItem('notes'));
-        // this.$nextTick(() => {
-        //     this.$refs.notesWrapper.animate([
-        //         { transform: 'translateX(0)' },
-        //         { transform: `translateX(-${this.duration}px)` }
-        //     ], {
-        //         duration: this.duration,
-        //     })
-        // });
+        this.notesWrapperHeight = this.$refs.notesWrapper.clientHeight;
     },
     computed: {
         ...mapState(['time', 'currentNote']),
         prepareNotes() {
+            for (let note of this.notes) {
+                if (!this.minNote || (note.number < this.minNote.number)) {
+                    this.minNote = note;
+                }
+                if (!this.maxNote || (note.number > this.maxNote.number)) {
+                    this.maxNote = note;
+                }
+            }
+
             // let left = 0;
             return this.notes.map((note, index) => {
                 note.start += 40000;
                 note.end += 40000;
 
-
                 const width = note.end - note.start;
                 // left += width + (index * 50);
                 const left = note.start;
-                const top = (MAX_NOTE - note.number) * 2;
+                const topRatio = (note.number - this.minNote.number) / ((this.maxNote.number - this.minNote.number) / 100);
+                //console.log(topRatio);
+                const top = note.number;
                 note.styles = {
                     width: width + 'px',
                     left: left + 'px',
-                    top: top + 'px',
+                    // top: top + 'px',
+                    bottom: topRatio + '%',
                 }
                 return note;
             });
