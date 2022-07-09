@@ -1,7 +1,7 @@
 <template>
     <div class="notes-slider">
         <div class="notes-slider-inner">
-            <CurrentNotePoint v-if="currentNote" :note="currentNote.number" :minNote="minNote" :maxNote="maxNote" />
+            <CurrentNotePoint :minNote="minNote" :maxNote="maxNote" />
             <div class="notes-wrapper" v-if="notes" :style="{width: duration + 'px'}" ref="notesWrapper">
                 <div class="note" v-for="note in prepareNotes" :style="note.styles"></div>
             </div>
@@ -60,7 +60,6 @@ export default {
                 const left = note.start;
                 const topRatio = (note.number - this.minNote.number) / ((this.maxNote.number - this.minNote.number) / 100);
                 //console.log(topRatio);
-                const top = note.number;
                 note.styles = {
                     width: width + 'px',
                     left: left + 'px',

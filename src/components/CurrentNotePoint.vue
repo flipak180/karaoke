@@ -7,7 +7,7 @@ import {mapState} from "vuex";
 
 export default {
     name: "CurrentNotePoint",
-    props: ['note', 'maxNote', 'minNote'],
+    props: ['maxNote', 'minNote'],
     data() {
         return {
             styles: {}
@@ -24,10 +24,12 @@ export default {
     },
     watch: {
         currentNote() {
-            let topRatio = this.currentNote ? (this.currentNote.number - this.minNote.number) / ((this.maxNote.number - this.minNote.number) / 100) : -1;
-            if (topRatio < 0 || topRatio > 100) {
-                topRatio = 1000;
-            }
+            let topRatio = this.currentNote ?
+                (this.currentNote.number - this.minNote.number) / ((this.maxNote.number - this.minNote.number) / 100) :
+                50;
+            // if (topRatio < 0 || topRatio > 100) {
+            //     topRatio = 1000;
+            // }
             this.styles = {
                 bottom: topRatio + '%',
             }

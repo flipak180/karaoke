@@ -52,6 +52,8 @@ body {
     align-items: center;
     gap: 10px;
 
+    display: none;
+
     /*height: calc(4rem + 60px);*/
     /*min-height: calc(4rem + 60px);*/
     /*line-height: 2rem;*/
@@ -142,7 +144,7 @@ video {
     background: rgba(255, 255, 255, 0.2);
     height: calc(100vh - 260px);
     width: 100%;
-    padding: 50px;
+    padding: 50px 0;
 
     .notes-slider-inner {
         position: relative;
@@ -164,11 +166,14 @@ video {
 
 .current-note-point {
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 100%;
+    height: 3px;
     background: violet;
-    border-radius: 50%;
     z-index: 10;
+    bottom: 50%;
+    transform: translate(0, -50%);
+    //opacity: 0.5;
+    transition: .5s;
 }
 
 .video-play-btn {

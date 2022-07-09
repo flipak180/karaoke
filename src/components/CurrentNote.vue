@@ -27,7 +27,11 @@ export default {
     },
     mounted() {
         new AudioProcess(frequency => {
-            this.$store.commit('setNote', frequency ? new Note(frequency) : null);
+            let note = frequency ? new Note(frequency) : null;
+            if (note && (note.number < 29 || note.number > 50)) {
+                note = null;
+            }
+            this.$store.commit('setNote', note);
         });
     },
 }
