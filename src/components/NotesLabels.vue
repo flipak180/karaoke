@@ -1,5 +1,5 @@
 <template>
-    <span v-for="note in notes" :style="{bottom: getBottom(note.number)}" class="note-label">{{ note.title }}</span>
+    <span v-for="note in notes" :style="{bottom: getBottom(note.number)}" class="note-label" v-html="note.title"></span>
 </template>
 
 <script>
@@ -18,9 +18,11 @@ export default {
     mounted() {
         const noteStrings = Note.noteStrings;
         for (let number = this.maxNote.number; number >= this.minNote.number; number--) {
+            let noteIndex = number % 12;
+            let octave = Math.floor(number / 12);
             this.notes.push({
                 number,
-                title: noteStrings[number % 12],
+                title: noteStrings[noteIndex] + (noteIndex ? '' : `<sub>${octave}</sub>`),
             });
         }
     },
