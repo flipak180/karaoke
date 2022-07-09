@@ -1,8 +1,9 @@
 <template>
     <div class="notes-slider">
-        <div class="notes-slider-inner">
-            <CurrentNotePoint :minNote="minNote" :maxNote="maxNote" />
-            <div class="notes-wrapper" v-if="notes" :style="{width: duration + 'px'}" ref="notesWrapper">
+        <CurrentNotePoint :minNote="minNote" :maxNote="maxNote" />
+        <div class="notes-wrapper">
+            <NotesLabels :minNote="minNote" :maxNote="maxNote" />
+            <div class="note-slider-panel" v-if="notes" :style="{width: duration + 'px'}" ref="notesWrapper">
                 <div class="note" v-for="note in prepareNotes" :style="note.styles"></div>
             </div>
         </div>
@@ -12,12 +13,16 @@
 <script>
 import CurrentNotePoint from "./CurrentNotePoint.vue";
 import {mapState} from "vuex";
+import NotesLabels from "./NotesLabels.vue";
+
+const NOTE_HEIGHT = 20;
 
 export default {
     name: "NotesSlider",
     // props: ['duration'],
     components: {
-        CurrentNotePoint
+        CurrentNotePoint,
+        NotesLabels
     },
     props: {
         notes: {
@@ -64,7 +69,8 @@ export default {
                     width: width + 'px',
                     left: left + 'px',
                     // top: top + 'px',
-                    bottom: topRatio + '%',
+                    bottom: `calc(${topRatio}% - ${NOTE_HEIGHT / 2}px)`,
+                    height: NOTE_HEIGHT + 'px',
                 }
                 return note;
             });

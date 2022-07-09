@@ -5,6 +5,7 @@ const store = createStore({
         return {
             time: 0,
             currentNote: null,
+            transpose: 0,
         }
     },
     mutations: {
@@ -13,6 +14,9 @@ const store = createStore({
         },
         setNote(state, currentNote) {
             state.currentNote = currentNote;
+        },
+        setTranspose(state, transpose) {
+            state.transpose = transpose;
         }
     }
 })

@@ -1,5 +1,5 @@
 <template>
-    <div class="current-note-point" :style="styles"></div>
+    <div class="current-note-point" :style="{bottom: top + '%'}"></div>
 </template>
 
 <script>
@@ -8,33 +8,21 @@ import {mapState} from "vuex";
 export default {
     name: "CurrentNotePoint",
     props: ['maxNote', 'minNote'],
-    data() {
-        return {
-            styles: {}
-        }
-    },
     computed: {
-        ...mapState(['currentNote']),
+        ...mapState(['currentNote', 'transpose']),
         top() {
-            // console.log(this.currentNote.frequency);
-            //console.log(this.number);
-            // return (MAX_NOTE - this.number) * 2;
-            // return this.currentNote.frequency;
-        }
-    },
-    watch: {
-        currentNote() {
-            let topRatio = this.currentNote ?
-                (this.currentNote.number - this.minNote.number) / ((this.maxNote.number - this.minNote.number) / 100) :
-                50;
+            if (!this.currentNote) {
+                return 50;
+            }
+
+            const number = this.currentNote.number + (this.transpose * 12);
+            return (number - this.minNote.number) / ((this.maxNote.number - this.minNote.number) / 100);
+
             // if (topRatio < 0 || topRatio > 100) {
             //     topRatio = 1000;
             // }
-            this.styles = {
-                bottom: topRatio + '%',
-            }
         }
-    }
+    },
 }
 </script>
 

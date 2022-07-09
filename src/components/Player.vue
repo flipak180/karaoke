@@ -3,6 +3,7 @@
     <Lyrics :lines="song.lyrics" />
     <CurrentNote/>
     <NotesSlider :notes="song.notes" :duration="song.duration" />
+    <Transpose />
 <!--    <CountDown @end="start" :number="startDelay" />-->
 </template>
 
@@ -12,6 +13,7 @@ import Lyrics from "./Lyrics.vue";
 import CurrentNote from "./CurrentNote.vue";
 import CountDown from "./CountDown.vue";
 import NotesSlider from "./NotesSlider.vue";
+import Transpose from "./Transpose.vue";
 
 let video = null;
 
@@ -23,7 +25,8 @@ export default {
         Lyrics,
         CurrentNote,
         CountDown,
-        NotesSlider
+        NotesSlider,
+        Transpose
     },
     data() {
         return {
