@@ -1,7 +1,7 @@
 <template>
     <div class="notes-slider">
-        <CurrentNotePoint :minNote="minNote" :maxNote="maxNote" />
         <div class="notes-wrapper">
+            <CurrentNotePoint :minNote="minNote" :maxNote="maxNote" />
             <NotesLabels :minNote="minNote" :maxNote="maxNote" />
             <div class="note-slider-panel" v-if="notes" :style="{width: duration + 'px'}" ref="notesWrapper">
                 <div class="note" v-for="note in prepareNotes" :style="note.styles"></div>
